@@ -6,6 +6,7 @@
 [OkHttp](https://square.github.io/okhttp/)
 [主页](http://localhost:8080/hello?name=lidy)
 [Maven仓库](https://mvnrepository.com/)
+[Spring-Boot官方文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-connect-to-production-database)
 ## 工具
 [Git]
 [OAuth](https://developer.github.com/apps/building-oauth-apps/)
