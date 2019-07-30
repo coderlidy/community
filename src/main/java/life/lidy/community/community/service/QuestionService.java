@@ -1,5 +1,6 @@
 package life.lidy.community.community.service;
 
+import life.lidy.community.community.dto.PaginationDTO;
 import life.lidy.community.community.dto.QuestionDTO;
 import life.lidy.community.community.mapper.QuestionMapper;
 import life.lidy.community.community.mapper.UserMapper;
@@ -18,9 +19,10 @@ public class QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
-    public List<QuestionDTO> list() {
-        List<Question> questions=questionMapper.list();
+    public PaginationDTO list(Integer page, Integer size) {
+        List<Question> questions=questionMapper.list(size*(page-1),size);
         List<QuestionDTO> questionDTOList=new ArrayList<>();
+        PaginationDTO paginationDTO=new PaginationDTO();
         for(Question question:questions){
             QuestionDTO questionDTO=new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
@@ -28,6 +30,8 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+        paginationDTO.setQuestionDTOS(questionDTOList);
+        paginationDTO.setPagination(questionMapper.count(),page,size);
+        return paginationDTO;
     }
 }
