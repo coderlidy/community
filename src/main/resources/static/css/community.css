@@ -1,0 +1,22 @@
+body{
+    background-color: cornsilk;
+}
+.main{
+    margin: 30px;
+    background-color: white;
+}
+.btn-publish{
+    float: right;
+    margin-bottom: 15px;
+}
+
+.media-object{
+    width: 40px;
+    height: 40px;
+}
+
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
