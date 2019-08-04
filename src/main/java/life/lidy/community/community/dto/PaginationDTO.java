@@ -12,17 +12,20 @@ public class PaginationDTO {
     private boolean showFirstPage;//到第一页的按钮
     private boolean showNext;//后一页
     private boolean showEndPage;//到尾页按钮
-
+    private Integer totalPage;//最后一页数
     private Integer page;//当前展示的页面
     private List<Integer> pages=new ArrayList<>();
     public void setPagination(Integer totalCount,Integer page,Integer size){
-        Integer totalPage;
         if(totalCount%size==0){
-            totalPage=totalCount%size;
+            totalPage=totalCount/size;
         }else{
-            totalPage=totalCount%size+1;
+            totalPage=totalCount/size+1;
         }
-
+        if(page<1)
+            page=1;
+        if(page>totalPage)
+            page=totalPage;
+        this.page=page;
         pages.add(page);
         for(int i=1;page+i<=totalPage && i<=3;i++){
             pages.add(page+i);
@@ -31,18 +34,15 @@ public class PaginationDTO {
             pages.add(0,page-i);
         }
 
-
-
-
         if(page==1){
-            showFirstPage=false;
+            showPreviews=false;
         }else {
-            showFirstPage=false;
+            showPreviews=true;
         }
         if(page==totalPage){
-            showEndPage=false;
+            showNext=false;
         }else {
-            showEndPage=true;
+            showNext=true;
         }
         if(pages.contains(1)){
             showFirstPage=false;

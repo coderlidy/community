@@ -57,7 +57,12 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatar_url());
-            userMapper.insert(user);
+            if(userMapper.findByAccountId(user.getAccountId())==null)
+                userMapper.insert(user);
+            else{
+                //更新用户token 用token密钥来验证登录而不是AccountId
+                userMapper.updateTokenByAccountId(user.getAccountId(),user.getToken());
+            }
             System.out.println(user.getName());
             //写cookie和session
             response.addCookie(new Cookie("token",token));
@@ -67,4 +72,14 @@ public class AuthorizeController {
             return "redirect:/";
         }
     }
+    @GetMapping("logout")
+    private  String logout(HttpServletRequest request,
+                           HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie=new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+    }
+
 }

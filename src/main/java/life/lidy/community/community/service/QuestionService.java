@@ -26,12 +26,66 @@ public class QuestionService {
         for(Question question:questions){
             QuestionDTO questionDTO=new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
-            User user=userMapper.findById(question.getCreator());
+            User user=userMapper.findByAccountId(question.getCreator());
             questionDTO.setUser(user);
+            if(questionDTO.getCommentCount()==null){
+                questionDTO.setCommentCount(0);
+            }
+            if(questionDTO.getLikeCount()==null){
+                questionDTO.setLikeCount(0);
+            }
+            if(questionDTO.getViewCount()==null){
+                questionDTO.setViewCount(0);
+            }
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setQuestionDTOS(questionDTOList);
         paginationDTO.setPagination(questionMapper.count(),page,size);
         return paginationDTO;
+    }
+
+   public PaginationDTO list(String accountId,Integer page,Integer size){
+       List<Question> questions=questionMapper.listByAccountId(accountId,size*(page-1),size);
+       List<QuestionDTO> questionDTOList=new ArrayList<>();
+       PaginationDTO paginationDTO=new PaginationDTO();
+       for(Question question:questions){
+           QuestionDTO questionDTO=new QuestionDTO();
+           BeanUtils.copyProperties(question,questionDTO);
+           User user=userMapper.findByAccountId(question.getCreator());
+           questionDTO.setUser(user);
+           if(questionDTO.getCommentCount()==null){
+               questionDTO.setCommentCount(0);
+           }
+           if(questionDTO.getLikeCount()==null){
+               questionDTO.setLikeCount(0);
+           }
+           if(questionDTO.getViewCount()==null){
+               questionDTO.setViewCount(0);
+           }
+           questionDTOList.add(questionDTO);
+       }
+       paginationDTO.setQuestionDTOS(questionDTOList);
+       paginationDTO.setPagination(questionMapper.count(),page,size);
+       return paginationDTO;
+   }
+
+    public QuestionDTO getById(Integer id) {
+        Question question=questionMapper.getById(id);
+        QuestionDTO questionDTO=new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        User user=userMapper.findByAccountId(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+        if(question.getId()==null){
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else {
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.update(question);
+        }
     }
 }
