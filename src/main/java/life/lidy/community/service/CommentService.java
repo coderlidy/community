@@ -8,16 +8,15 @@ import life.lidy.community.mapper.CommentMapper;
 import life.lidy.community.mapper.QuestionExtMapper;
 import life.lidy.community.mapper.QuestionMapper;
 import life.lidy.community.mapper.UserMapper;
-import life.lidy.community.model.Comment;
-import life.lidy.community.model.CommentExample;
-import life.lidy.community.model.Question;
-import life.lidy.community.model.UserExample;
+import life.lidy.community.model.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
     @Transactional
-    public void insert(Comment comment) {
+    public void  insert(Comment comment) {
         if(comment.getParentid()==null || comment.getParentid()==0){
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
         }
@@ -67,18 +66,25 @@ public class CommentService {
         if(comments.size()==0){
             return new ArrayList<>();
         }
+        //lambda
         // 获取去重的评论人
         Set<String> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
-        List<Long> userIds = new ArrayList();
-        userIds.addAll(commentators);
-
-
+        List<String> userAccountIds = new ArrayList();
+        userAccountIds.addAll(commentators);
         // 获取评论人并转换为 Map
         UserExample userExample = new UserExample();
         userExample.createCriteria()
-                .andIdIn(userIds);
+                .andAccountIdIn(userAccountIds);
         List<User> users = userMapper.selectByExample(userExample);
-        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
-        return null;
+        Map<String, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getAccountId(), user -> user));
+        // 转换 comment 为 commentDTO
+        List<CommentDTO> commentDTOS = comments.stream().map(comment -> {
+            CommentDTO commentDTO = new CommentDTO();
+            BeanUtils.copyProperties(comment, commentDTO);
+            commentDTO.setUser(userMap.get(comment.getCommentator()));
+            return commentDTO;
+        }).collect(Collectors.toList());
+
+        return commentDTOS;
     }
 }

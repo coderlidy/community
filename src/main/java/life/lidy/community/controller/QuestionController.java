@@ -34,6 +34,7 @@ public class QuestionController {
         //增加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
+        model.addAttribute("comments",comments);
         return "question";
     }
 }

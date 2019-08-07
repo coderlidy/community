@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 @Data
 public class CommentDTO {
     private Long id;
-    private Long parentid;
+    private Long parentId;
     private Integer type;
     private String commentator;
     private Long gmtCreate;
