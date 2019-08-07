@@ -1,10 +1,8 @@
-package life.lidy.community.community.controller;
+package life.lidy.community.controller;
 
-import life.lidy.community.community.dto.PaginationDTO;
-import life.lidy.community.community.mapper.UserMapper;
-import life.lidy.community.community.model.Question;
-import life.lidy.community.community.model.User;
-import life.lidy.community.community.service.QuestionService;
+import life.lidy.community.dto.PaginationDTO;
+import life.lidy.community.model.User;
+import life.lidy.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

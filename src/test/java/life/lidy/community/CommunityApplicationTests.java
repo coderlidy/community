@@ -1,4 +1,4 @@
-package life.lidy.community.community;
+package life.lidy.community;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

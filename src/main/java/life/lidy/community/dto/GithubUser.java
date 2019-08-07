@@ -1,4 +1,4 @@
-package life.lidy.community.community.dto;
+package life.lidy.community.dto;
 
 import lombok.Data;
 

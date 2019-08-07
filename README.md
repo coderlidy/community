@@ -12,3 +12,4 @@
 [Git]
 [OAuth](https://developer.github.com/apps/building-oauth-apps/)
 [Visual Paradigm]
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

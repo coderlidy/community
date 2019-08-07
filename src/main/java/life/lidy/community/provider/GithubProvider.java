@@ -1,8 +1,8 @@
-package life.lidy.community.community.provider;
+package life.lidy.community.provider;
 
 import com.alibaba.fastjson.JSON;
-import life.lidy.community.community.dto.AccessTokenDTO;
-import life.lidy.community.community.dto.GithubUser;
+import life.lidy.community.dto.AccessTokenDTO;
+import life.lidy.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

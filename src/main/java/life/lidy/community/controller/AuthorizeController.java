@@ -1,10 +1,11 @@
-package life.lidy.community.community.controller;
+package life.lidy.community.controller;
 
-import life.lidy.community.community.dto.AccessTokenDTO;
-import life.lidy.community.community.dto.GithubUser;
-import life.lidy.community.community.mapper.UserMapper;
-import life.lidy.community.community.model.User;
-import life.lidy.community.community.provider.GithubProvider;
+import life.lidy.community.dto.AccessTokenDTO;
+import life.lidy.community.dto.GithubUser;
+import life.lidy.community.mapper.UserMapper;
+import life.lidy.community.model.User;
+import life.lidy.community.model.UserExample;
+import life.lidy.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -57,11 +58,16 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatar_url());
-            if(userMapper.findByAccountId(user.getAccountId())==null)
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
+            if(userMapper.selectByExample(userExample).get(0)==null)
                 userMapper.insert(user);
             else{
                 //更新用户token 用token密钥来验证登录而不是AccountId
-                userMapper.updateTokenByAccountId(user.getAccountId(),user.getToken());
+                UserExample userExample1 = new UserExample();
+                userExample1.createCriteria().andAccountIdEqualTo(user.getAccountId());
+                userMapper.updateByExampleSelective(user,userExample1);
+                //userMapper.updateTokenByAccountId(user.getAccountId(),user.getToken());
             }
             System.out.println(user.getName());
             //写cookie和session

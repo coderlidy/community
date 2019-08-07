@@ -1,11 +1,11 @@
-package life.lidy.community.community.dto;
+package life.lidy.community.dto;
 
-import life.lidy.community.community.model.User;
+import life.lidy.community.model.User;
 import lombok.Data;
 
 @Data
 public class QuestionDTO {
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
     private String tag;

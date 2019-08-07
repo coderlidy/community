@@ -1,9 +1,7 @@
-package life.lidy.community.community.controller;
+package life.lidy.community.controller;
 
-import life.lidy.community.community.dto.QuestionDTO;
-import life.lidy.community.community.mapper.QuestionMapper;
-import life.lidy.community.community.model.Question;
-import life.lidy.community.community.service.QuestionService;
+import life.lidy.community.dto.QuestionDTO;
+import life.lidy.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +13,18 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
     @GetMapping("/question/{id}")
-    public String question(@PathVariable(name = "id") Integer id, Model model){
+    public String question(@PathVariable(name = "id") Long id, Model model){
         QuestionDTO questionDTO=questionService.getById(id);
+        if(questionDTO.getCommentCount()==null){
+            questionDTO.setCommentCount(0);
+        }
+        if(questionDTO.getLikeCount()==null){
+            questionDTO.setLikeCount(0);
+        }
+        if(questionDTO.getViewCount()==null){
+            questionDTO.setViewCount(0);
+        }
+        questionService.incView(id);
         model.addAttribute("question",questionDTO);
         return "question";
     }

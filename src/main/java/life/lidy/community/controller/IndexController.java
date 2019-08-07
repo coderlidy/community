@@ -1,8 +1,9 @@
-package life.lidy.community.community.controller;
+package life.lidy.community.controller;
 
-import life.lidy.community.community.dto.PaginationDTO;
-import life.lidy.community.community.mapper.QuestionMapper;
-import life.lidy.community.community.service.QuestionService;
+import life.lidy.community.dto.PaginationDTO;
+import life.lidy.community.mapper.QuestionMapper;
+import life.lidy.community.model.QuestionExample;
+import life.lidy.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,8 @@ public class IndexController {
 
 
         Integer totalPage;
-        Integer totalCount=questionMapper.count();
+        Integer totalCount=(int)questionMapper.countByExample(new QuestionExample());
+        //Integer totalCount=questionMapper.count();
         if(totalCount%size==0){
             totalPage=totalCount/size;
         }else{
