@@ -4,10 +4,7 @@ import life.lidy.community.dto.CommentDTO;
 import life.lidy.community.enums.CommentTypeEnum;
 import life.lidy.community.exception.CustomizeErrorCode;
 import life.lidy.community.exception.CustomizeException;
-import life.lidy.community.mapper.CommentMapper;
-import life.lidy.community.mapper.QuestionExtMapper;
-import life.lidy.community.mapper.QuestionMapper;
-import life.lidy.community.mapper.UserMapper;
+import life.lidy.community.mapper.*;
 import life.lidy.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,8 @@ public class CommentService {
     private QuestionExtMapper questionExtMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentExtMapper commentExtMapper;
     @Transactional
     public void  insert(Comment comment) {
         if(comment.getParentid()==null || comment.getParentid()==0){
@@ -45,6 +44,11 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加评论数
+            Comment parentComment=new Comment();
+            parentComment.setId(comment.getParentid());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentCount(parentComment);
         }else {
             // 回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentid());
@@ -58,10 +62,11 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> listByQuestionId(Long id) {
+    public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
         CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andParentidEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        commentExample.createCriteria().andParentidEqualTo(id).andTypeEqualTo(type.getType());
         commentMapper.selectByExample(commentExample);
+        commentExample.setOrderByClause("gmt_create desc");
         List<Comment> comments=commentMapper.selectByExample(commentExample);
         if(comments.size()==0){
             return new ArrayList<>();

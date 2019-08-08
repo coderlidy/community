@@ -14,5 +14,6 @@ public class CommentDTO {
     private Long gmtModefied;
     private Long likeCount;
     private String content;
+    private Integer commentCount;
     private User user;
 }

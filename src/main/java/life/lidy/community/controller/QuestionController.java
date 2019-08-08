@@ -2,6 +2,7 @@ package life.lidy.community.controller;
 
 import life.lidy.community.dto.CommentDTO;
 import life.lidy.community.dto.QuestionDTO;
+import life.lidy.community.enums.CommentTypeEnum;
 import life.lidy.community.service.CommentService;
 import life.lidy.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class QuestionController {
         if(questionDTO.getViewCount()==null){
             questionDTO.setViewCount(0);
         }
-        List<CommentDTO> comments= commentService.listByQuestionId(id);
+        List<CommentDTO> comments= commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //增加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
