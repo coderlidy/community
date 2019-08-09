@@ -2,6 +2,8 @@ package life.lidy.community.service;
 
 import life.lidy.community.dto.CommentDTO;
 import life.lidy.community.enums.CommentTypeEnum;
+import life.lidy.community.enums.NotificationStatusEnum;
+import life.lidy.community.enums.NotificationTypeEnum;
 import life.lidy.community.exception.CustomizeErrorCode;
 import life.lidy.community.exception.CustomizeException;
 import life.lidy.community.mapper.*;
@@ -29,6 +31,8 @@ public class CommentService {
     private UserMapper userMapper;
     @Autowired
     private CommentExtMapper commentExtMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
     @Transactional
     public void  insert(Comment comment) {
         if(comment.getParentid()==null || comment.getParentid()==0){
@@ -49,6 +53,13 @@ public class CommentService {
             parentComment.setId(comment.getParentid());
             parentComment.setCommentCount(1);
             commentExtMapper.incCommentCount(parentComment);
+            //评论通知
+            Notification notification=new Notification();
+            notification.setGmtCreate(System.currentTimeMillis());
+            notification.setType(NotificationTypeEnum.REPLY_COMMENT.getType());
+            notification.setOuterid(comment.getId());
+            notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+            notificationMapper.insert(notification);
         }else {
             // 回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentid());
