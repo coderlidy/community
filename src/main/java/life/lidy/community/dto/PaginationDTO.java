@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PaginationDTO {
-    private List<QuestionDTO> questionDTOS;
+public class PaginationDTO<T> {
+    private List<T> data;
     private boolean showPreviews;//前一页
     private boolean showFirstPage;//到第一页的按钮
     private boolean showNext;//后一页

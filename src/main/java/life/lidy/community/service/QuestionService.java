@@ -57,7 +57,7 @@ public class QuestionService {
             }
             questionDTOList.add(questionDTO);
         }
-        paginationDTO.setQuestionDTOS(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         paginationDTO.setPagination((int)questionMapper.countByExample(new QuestionExample()),page,size);
         return paginationDTO;
     }
@@ -88,7 +88,7 @@ public class QuestionService {
            }
            questionDTOList.add(questionDTO);
        }
-       paginationDTO.setQuestionDTOS(questionDTOList);
+       paginationDTO.setData(questionDTOList);
 
        //paginationDTO.setPagination(questionMapper.count(),page,size);
        paginationDTO.setPagination((int)questionMapper.countByExample(new QuestionExample()),page,size);
