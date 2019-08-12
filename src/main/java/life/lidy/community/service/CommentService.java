@@ -47,11 +47,11 @@ public class CommentService {
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
-            // 回复问题
             Question question = questionMapper.selectByPrimaryKey(dbComment.getParentid());
             if (question == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            comment.setCommentCount(0);
             commentMapper.insert(comment);
             //增加评论数
             Comment parentComment=new Comment();
@@ -66,6 +66,7 @@ public class CommentService {
             if (question == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            comment.setCommentCount(0);
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
@@ -75,6 +76,9 @@ public class CommentService {
     }
 
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, Long outerId,NotificationTypeEnum notificationType) {
+        if(receiver==Long.valueOf(comment.getCommentator())){
+            return;
+        }
         //评论通知
         Notification notification=new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
@@ -88,6 +92,7 @@ public class CommentService {
         notification.setReceiver(receiver);
         notification.setNotifierName(notifierName);
         notification.setOuterTitle(outerTitle);
+
         notificationMapper.insert(notification);
     }
 

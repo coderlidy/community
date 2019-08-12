@@ -212,7 +212,7 @@
         typemustmatch: ["", "typemustmatch"]
       }
     },
-    ol: { attrs: { reversed: ["", "reversed"], start: null, type: ["1", "a", "A", "i", "I"] } },
+    ol: { attrs: { reversed: ["", "reversed"], start: null, type: ["1", "default-avatar.png", "A", "i", "I"] } },
     optgroup: { attrs: { disabled: ["", "disabled"], label: null } },
     option: { attrs: { disabled: ["", "disabled"], label: null, selected: ["", "selected"], value: null } },
     output: { attrs: { "for": null, form: null, name: null } },
@@ -305,7 +305,7 @@
   };
 
   var globalAttrs = {
-    accesskey: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    accesskey: ["default-avatar.png", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
     "class": null,
     contenteditable: ["true", "false"],
     contextmenu: null,

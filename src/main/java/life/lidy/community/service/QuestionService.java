@@ -2,6 +2,7 @@ package life.lidy.community.service;
 
 import life.lidy.community.dto.PaginationDTO;
 import life.lidy.community.dto.QuestionDTO;
+import life.lidy.community.dto.QuestionQueryDTO;
 import life.lidy.community.exception.CustomizeErrorCode;
 import life.lidy.community.exception.CustomizeException;
 import life.lidy.community.mapper.QuestionExtMapper;
@@ -30,11 +31,30 @@ public class QuestionService {
     private QuestionExtMapper questionExtMapper;
     @Autowired
     private UserMapper userMapper;
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO listAndSearch(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)) {
+            String[] tags = StringUtils.split(search, " ");
+            //格式化
+            search = Arrays
+                    .stream(tags)
+                    .filter(StringUtils::isNotBlank)
+                    .map(t -> t.replace("+", "").replace("*", ""))
+                    .filter(StringUtils::isNotBlank)
+                    .collect(Collectors.joining("|"));
+        }
+        //  添加搜索字段
+        QuestionQueryDTO questionQueryDTO=new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        questionQueryDTO.setPage(size*(page-1));
+        questionQueryDTO.setSize(size);
+        //获得满足搜索条件的问题数 没有条件则搜索全部
+        Integer totalCount=questionExtMapper.countBySearch(questionQueryDTO);
+
         //List<Question> questions=questionMapper.list(size*(page-1),size);
         QuestionExample questionExample=new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questions=questionMapper.selectByExampleWithRowbounds(questionExample,new RowBounds(size*(page-1),size));
+        //获得满足搜索条件的问题集合 没有条件则搜索全部
+        List<Question> questions=questionExtMapper.selectBySearch(questionQueryDTO);
 
         List<QuestionDTO> questionDTOList=new ArrayList<>();
         PaginationDTO paginationDTO=new PaginationDTO();
@@ -58,7 +78,8 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setData(questionDTOList);
-        paginationDTO.setPagination((int)questionMapper.countByExample(new QuestionExample()),page,size);
+
+        paginationDTO.setPagination(totalCount,page,size);
         return paginationDTO;
     }
 

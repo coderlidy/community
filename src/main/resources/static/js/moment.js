@@ -2341,7 +2341,7 @@
         });
     }
 
-    meridiem('a', true);
+    meridiem('default-avatar.png', true);
     meridiem('A', false);
 
     // ALIASES
@@ -2354,7 +2354,7 @@
         return locale._meridiemParse;
     }
 
-    addRegexToken('a',  matchMeridiem);
+    addRegexToken('default-avatar.png',  matchMeridiem);
     addRegexToken('A',  matchMeridiem);
     addRegexToken('H',  match1to2);
     addRegexToken('h',  match1to2);
@@ -2362,7 +2362,7 @@
     addRegexToken('hh', match1to2, match2);
 
     addParseToken(['H', 'HH'], HOUR);
-    addParseToken(['a', 'A'], function (input, array, config) {
+    addParseToken(['default-avatar.png', 'A'], function (input, array, config) {
         config._isPm = config._locale.isPM(input);
         config._meridiem = input;
     });

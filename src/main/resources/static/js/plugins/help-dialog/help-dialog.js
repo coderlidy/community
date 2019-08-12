@@ -67,7 +67,7 @@
 					var md = exports.$marked(text);
 					helpContent.html(md);
                     
-                    helpContent.find("a").attr("target", "_blank");
+                    helpContent.find("default-avatar.png").attr("target", "_blank");
 				});
 			}
 		};

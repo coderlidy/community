@@ -299,7 +299,7 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
     if (state.trailingSpaceNewLine) {
       styles.push("trailing-space-new-line");
     } else if (state.trailingSpace) {
-      styles.push("trailing-space-" + (state.trailingSpace % 2 ? "a" : "b"));
+      styles.push("trailing-space-" + (state.trailingSpace % 2 ? "default-avatar.png" : "b"));
     }
 
     return styles.length ? styles.join(' ') : null;

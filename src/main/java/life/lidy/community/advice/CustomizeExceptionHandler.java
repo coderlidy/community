@@ -58,5 +58,4 @@ public class CustomizeExceptionHandler {
         }
         return HttpStatus.valueOf(statusCode);
     }
-
 }

@@ -102,7 +102,7 @@
                 dialog = editor.find("." + dialogName);
 
 				selecteds = [];
-				dialog.find("a").removeClass("selected");
+				dialog.find("default-avatar.png").removeClass("selected");
 
 				this.dialogShowMask(dialog);
 				this.dialogLockScreen();

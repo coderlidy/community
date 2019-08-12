@@ -56,7 +56,6 @@ function collapseComments(e) {
         e.removeAttribute("data-collapse");
         e.classList.remove("active");//动态添加样式
     } else {
-        debugger;
         var subCommentContainer = $("#comment-" + id);
         if (subCommentContainer.children().length != 1) {
             //展开二级评论

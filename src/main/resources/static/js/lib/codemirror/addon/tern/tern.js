@@ -259,7 +259,7 @@
           tip.appendChild(document.createTextNode(" — " + data.doc));
         if (data.url) {
           tip.appendChild(document.createTextNode(" "));
-          var child = tip.appendChild(elt("a", null, "[docs]"));
+          var child = tip.appendChild(elt("default-avatar.png", null, "[docs]"));
           child.href = data.url;
           child.target = "_blank";
         }

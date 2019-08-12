@@ -1,6 +1,8 @@
 package life.lidy.community.mapper;
 
 import java.util.List;
+
+import life.lidy.community.dto.QuestionQueryDTO;
 import life.lidy.community.model.Question;
 import life.lidy.community.model.QuestionExample;
 import org.apache.ibatis.annotations.Param;
@@ -134,4 +136,5 @@ public interface QuestionMapper {
      * @mbg.generated Sat Aug 10 11:45:58 CST 2019
      */
     int updateByPrimaryKey(Question record);
+
 }
