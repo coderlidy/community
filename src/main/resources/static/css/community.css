@@ -98,3 +98,7 @@ body{
     margin-top: 10px;
     padding-top: 10px;
 }
+.footer {
+    text-align: center;
+    color: #666;
+}
