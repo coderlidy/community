@@ -55,6 +55,8 @@ public class QuestionService {
         QuestionExample questionExample=new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
         //获得满足搜索条件的问题集合 没有条件则搜索全部
+        System.out.println("------------------"+questionQueryDTO.getPage());
+        System.out.println("------------------"+questionQueryDTO.getSize());
         List<Question> questions=questionExtMapper.selectBySearch(questionQueryDTO);
 
         List<QuestionDTO> questionDTOList=new ArrayList<>();
