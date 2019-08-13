@@ -45,7 +45,8 @@ public class QuestionService {
         //  添加搜索字段
         QuestionQueryDTO questionQueryDTO=new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
-        questionQueryDTO.setPage(size*(page-1));
+        Integer offset=page<0?0:size*(page-1);
+        questionQueryDTO.setPage(offset);
         questionQueryDTO.setSize(size);
         //获得满足搜索条件的问题数 没有条件则搜索全部
         Integer totalCount=questionExtMapper.countBySearch(questionQueryDTO);
@@ -87,7 +88,8 @@ public class QuestionService {
        //List<Question> questions=questionMapper.listByAccountId(accountId,size*(page-1),size);
        QuestionExample example = new QuestionExample();
        example.createCriteria().andCreatorEqualTo(accountId);
-       List<Question> questions=questionMapper.selectByExampleWithRowbounds(example,new RowBounds(size*(page-1),size));
+       Integer offset=page<0?0:size*(page-1);
+       List<Question> questions=questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
        List<QuestionDTO> questionDTOList=new ArrayList<>();
        PaginationDTO paginationDTO=new PaginationDTO();
        for(Question question:questions){
