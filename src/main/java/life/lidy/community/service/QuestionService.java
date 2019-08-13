@@ -45,7 +45,7 @@ public class QuestionService {
         //  添加搜索字段
         QuestionQueryDTO questionQueryDTO=new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
-        Integer offset=page<0?0:size*(page-1);
+        Integer offset=page<=0?0:size*(page-1);
         questionQueryDTO.setPage(offset);
         questionQueryDTO.setSize(size);
         //获得满足搜索条件的问题数 没有条件则搜索全部
@@ -55,8 +55,8 @@ public class QuestionService {
         QuestionExample questionExample=new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
         //获得满足搜索条件的问题集合 没有条件则搜索全部
-        System.out.println("------------------"+questionQueryDTO.getPage());
-        System.out.println("------------------"+questionQueryDTO.getSize());
+        System.out.println("------------------ "+questionQueryDTO.getPage());
+        System.out.println("------------------ "+questionQueryDTO.getSize());
         List<Question> questions=questionExtMapper.selectBySearch(questionQueryDTO);
 
         List<QuestionDTO> questionDTOList=new ArrayList<>();
@@ -90,7 +90,7 @@ public class QuestionService {
        //List<Question> questions=questionMapper.listByAccountId(accountId,size*(page-1),size);
        QuestionExample example = new QuestionExample();
        example.createCriteria().andCreatorEqualTo(accountId);
-       Integer offset=page<0?0:size*(page-1);
+       Integer offset=page<=0?0:size*(page-1);
        List<Question> questions=questionMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
        List<QuestionDTO> questionDTOList=new ArrayList<>();
        PaginationDTO paginationDTO=new PaginationDTO();
