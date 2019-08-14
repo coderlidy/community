@@ -87,12 +87,15 @@ public class CommentService {
         notification.setOuterid(outerId);
         //设置评论者id
         notification.setNotifier(Long.valueOf(comment.getCommentator()));
-        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
-        //设置被评论者id
         notification.setReceiver(receiver);
         notification.setNotifierName(notifierName);
         notification.setOuterTitle(outerTitle);
-
+        if(notification.getNotifier().equals(notification.getReceiver())){
+            notification.setStatus(NotificationStatusEnum.READ.getStatus());
+        }else {
+            notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        }
+        //设置被评论者id
         notificationMapper.insert(notification);
     }
 
