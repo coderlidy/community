@@ -102,3 +102,8 @@ body{
     text-align: center;
     color: #666;
 }
+.navbar-title{
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 0px;
+}

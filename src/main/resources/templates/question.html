@@ -4,7 +4,6 @@
     <title th:text="${sectionName}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
     <link rel="stylesheet" href="/css/editormd.min.css">
     <link rel="stylesheet" href="/css/editormd.preview.min.css">
@@ -15,7 +14,6 @@
     <script src="/js/editormd.min.js" type="application/javascript"></script>
     <script src="/js/lib/marked.min.js"></script>
     <script src="/js/lib/prettify.min.js"></script>
-
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -80,7 +78,7 @@
                                     <span class="glyphicon glyphicon-comment"></span>
                                     <span th:text="${comment.commentCount}"></span>
                                 </span>
-                                <span class="pull-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
+                                <span class="pull-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                             </div>
                         </div>
                         <!--二级评论-->

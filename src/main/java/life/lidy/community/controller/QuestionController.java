@@ -37,6 +37,7 @@ public class QuestionController {
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",comments);
+        //相关问题
         model.addAttribute("relatedQuestions",relatedQuestions);
         return "question";
     }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,7 +82,6 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
         paginationDTO.setData(questionDTOList);
-
         paginationDTO.setPagination(totalCount,page,size);
         return paginationDTO;
     }
@@ -113,10 +113,12 @@ public class QuestionService {
            }
            questionDTOList.add(questionDTO);
        }
+       Collections.reverse(questionDTOList);
        paginationDTO.setData(questionDTOList);
 
        //paginationDTO.setPagination(questionMapper.count(),page,size);
        paginationDTO.setPagination((int)questionMapper.countByExample(new QuestionExample()),page,size);
+
        return paginationDTO;
    }
 
