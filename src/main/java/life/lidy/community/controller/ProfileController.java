@@ -37,10 +37,15 @@ public class ProfileController {
             PaginationDTO pagination=questionService.list(user.getAccountId(),page,size);
             model.addAttribute("pagination",pagination);
         }else if("replies".equals(action)){
-            PaginationDTO pagination=notificationService.list(Long.valueOf(user.getAccountId()),page,size);
+            PaginationDTO pagination=notificationService.list("replies",Long.valueOf(user.getAccountId()),page,size);
             model.addAttribute("section","replies");
             model.addAttribute("pagination",pagination);
-            model.addAttribute("sectionName","最新回复");
+            model.addAttribute("sectionName","收到回复");
+        }else if("mycomments".equals(action)){
+            PaginationDTO pagination=notificationService.list("mycomments",Long.valueOf(user.getAccountId()),page,size);
+            model.addAttribute("section","mycomments");
+            model.addAttribute("pagination",pagination);
+            model.addAttribute("sectionName","我的动态");
         }
 
         return "profile";

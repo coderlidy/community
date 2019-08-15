@@ -23,7 +23,7 @@ import java.util.Objects;
 public class NotificationService {
     @Autowired
     private NotificationMapper notificationMapper;
-    public PaginationDTO list(Long accountId, Integer page, Integer size) {
+    public PaginationDTO list(String type,Long accountId, Integer page, Integer size) {
 
         PaginationDTO<NotificationDTO> paginationDTO = new PaginationDTO<>();
 
@@ -52,8 +52,13 @@ public class NotificationService {
         //size*(page-1)
         Integer offset = size * (page - 1);
         NotificationExample example = new NotificationExample();
-        example.createCriteria()
-                .andReceiverEqualTo(accountId);
+        if(type.equals("replies")){
+            example.createCriteria()
+                    .andReceiverEqualTo(accountId);
+        } else if (type.equals("mycomments")) {
+            example.createCriteria()
+                    .andNotifierEqualTo(accountId);
+        }
         example.setOrderByClause("gmt_create desc");
 
         List<Notification> notifications = notificationMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));

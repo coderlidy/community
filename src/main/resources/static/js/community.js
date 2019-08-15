@@ -1,6 +1,6 @@
 function post() {
     var questionId=$("#question_id").val();
-    var content=$("#comment_content").val();
+    var content=$("#comment_content").val().trim();
     comment2target(questionId,1,content)
 }
 function comment2target(targetId, type, content) {
@@ -39,7 +39,7 @@ function comment2target(targetId, type, content) {
 }
 function comment(e) {
     var commentId = e.getAttribute("data-id");
-    var content = $("#input-" + commentId).val();
+    var content = $("#input-" + commentId).val().trim();
     comment2target(commentId, 2, content);
 }
 /**
