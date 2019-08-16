@@ -1,15 +1,42 @@
-## Lidy的社区
+## 求索论坛
+
+## 快速运行
+1. 安装必备工具  
+JDK，Maven
+2. 克隆代码到本地
+3. 运行打包命令
+```sh
+mvn package
+```
+4. 运行项目  
+```sh
+java -jar target/community-0.0.1-SNAPSHOT.jar
+```
+5. 访问项目
+```
+http://localhost:8887
+```
+
 
 ## 资料
-[Spring 文档](https://spring.io/guides)
-[Bootstrap](https://v3.bootcss.com/)
-[OkHttp](https://square.github.io/okhttp/)
-[主页](http://localhost:8080/hello?name=lidy)
-[Maven仓库](https://mvnrepository.com/)
-[Spring-Boot官方文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-connect-to-production-database)
-[Lombok特性](https://projectlombok.org/features/all)
+[Spring 文档](https://spring.io/guides)    
+[Spring Web](https://spring.io/guides/gs/serving-web-content/)   
+[es](https://elasticsearch.cn/explore)    
+[Github deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys)    
+[Bootstrap](https://v3.bootcss.com/getting-started/)    
+[Github OAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)    
+[Spring](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)    
+[菜鸟教程](https://www.runoob.com/mysql/mysql-insert-query.html)    
+[Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)    
+[Spring Dev Tool](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#using-boot-devtools)  
+[Spring MVC](https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor)  
+[Markdown 插件](http://editor.md.ipandao.com/) 
+
 ## 工具
-[Git]
-[OAuth](https://developer.github.com/apps/building-oauth-apps/)
-[Visual Paradigm]
+[Git](https://git-scm.com/download)   
+[Visual Paradigm](https://www.visual-paradigm.com)    
+[Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
+[Lombok](https://www.projectlombok.org)   
+```bash 
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
